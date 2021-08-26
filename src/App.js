@@ -240,9 +240,9 @@ class App extends Component {
     let date = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-${new Date().getDate()}`
     let { classes } = this.props;
     let { items, inputValue, filteredByDate, editingItem } = this.state;
-    let showCompleted = items.filter(item => item.completed === true).map((item) => this.renderList(item))
-    let showAll = items.map((item) => this.renderList(item))
-    let showFiltered = filteredByDate.map((item) => this.renderList(item))
+    let completedItems = items.filter(item => item.completed === true).map((item) => this.renderList(item))
+    let allItems = items.map((item) => this.renderList(item))
+    let filteredItems = filteredByDate.map((item) => this.renderList(item))
     return (
       <div className={classes.container}>
         <div className={classes.inputAndButtonContainer}>
@@ -278,7 +278,7 @@ class App extends Component {
             <StyledFilterButton onClick={this.deleteCompleted}>Del Completed</StyledFilterButton>
             <StyledFilterButton onClick={this.dateFilter}>Filter By Date</StyledFilterButton>
             {this.state.showDateFilter ? this.renderDateFilter() : null}
-            {this.state.showCompleted ? showCompleted : this.state.showFilteredByDate ? showFiltered : showAll}
+            {this.state.showCompleted ? completedItems : this.state.showFilteredByDate ? filteredItems : allItems}
             <EditDialog
               item={editingItem}
               handleClose={this.closeEdit}
