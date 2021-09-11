@@ -17,7 +17,7 @@ let StyledInput = styled(TextField)`
   
 `;
 let StyledAddButton = styled(Button)`
-  background-color: #bd2842;
+  background-color: #BF2204;
   margin-left: 10px;
   height: 35px;
   text-transform: none;
@@ -26,7 +26,7 @@ let StyledAddButton = styled(Button)`
   padding-left: 13px;
 `;
 let StyledFilterButton = styled(Button)`
-  background-color: #bd2842;
+  background-color: #BF2204;
   margin: 8px;
   height: 35px;
   text-transform: none;
@@ -39,6 +39,8 @@ let styles = () => ({
     display: "flex",
     justifyContent: "center",
     height: "100vh",
+    overflow: "auto",
+    width: 800,
     backgroundColor: "#04A1BF",
   },
   inputAndButtonContainer: {
@@ -56,7 +58,8 @@ let styles = () => ({
     justifyContent: "center",
     alignItems: "center",
     maxWidth: "100%",
-    borderRadius: "1%"
+    borderRadius: "1%",
+    maxHeight: "100vh",
   },
 });
 
@@ -210,49 +213,52 @@ function App(props) {
   let allItems = items.map((item) => renderList(item))
   let filteredItems = filteredByDate.map((item) => renderList(item))
   return (
-    <div className={classes.container}>
-      <div className={classes.inputAndButtonContainer}>
-        <div className={classes.inputAndButton}>
-          <StyledInput
-            label="Type..."
-            value={inputValue}
-            onChange={handleInput}
-            inputProps={{ onKeyDown }}
-          />
-          <TextField
-            id="date"
-            label="Date"
-            type="date"
-            // defaultValue={date}
-            value={inputDateValue}
-            onChange={handleDateInput}
-            className={classes.textField}
-            InputLabelProps={{ shrink: true }}
-          />
-          <StyledAddButton onClick={addItem}>
-            Add
-          </StyledAddButton>
-          <StyledAddButton >
-            Search
-          </StyledAddButton>
-        </div>
-        <div className={classes.listContainer}>
+    <div className="App">
 
-          <StyledFilterButton onClick={showAll}>Show All</StyledFilterButton>
-          <StyledFilterButton onClick={() => setShowCompleted(true)}>Show Completed</StyledFilterButton>
-          <StyledFilterButton onClick={deleteAll}>Del All</StyledFilterButton>
-          <StyledFilterButton onClick={deleteCompleted}>Del Completed</StyledFilterButton>
-          <StyledFilterButton onClick={dateFilter}>Filter By Date</StyledFilterButton>
-          {showDateFilter ? renderDateFilter() : null}
-          {showCompleted ? completedItems : showFilteredByDate ? filteredItems : allItems}
-          <EditDialog
-            item={editingItem}
-            handleClose={closeEdit}
-            handleSave={handleSave}
-          />
+      <div className={classes.container}>
+        <div className={classes.inputAndButtonContainer}>
+          <div className={classes.inputAndButton}>
+            <StyledInput
+              label="Type..."
+              value={inputValue}
+              onChange={handleInput}
+              inputProps={{ onKeyDown }}
+            />
+            <TextField
+              id="date"
+              label="Date"
+              type="date"
+              // defaultValue={date}
+              value={inputDateValue}
+              onChange={handleDateInput}
+              className={classes.textField}
+              InputLabelProps={{ shrink: true }}
+            />
+            <StyledAddButton onClick={addItem}>
+              Add
+            </StyledAddButton>
+            <StyledAddButton >
+              Search
+            </StyledAddButton>
+          </div>
+          <div className={classes.listContainer}>
 
+            <StyledFilterButton onClick={showAll}>Show All</StyledFilterButton>
+            <StyledFilterButton onClick={() => setShowCompleted(true)}>Show Completed</StyledFilterButton>
+            <StyledFilterButton onClick={deleteAll}>Del All</StyledFilterButton>
+            <StyledFilterButton onClick={deleteCompleted}>Del Completed</StyledFilterButton>
+            <StyledFilterButton onClick={dateFilter}>Filter By Date</StyledFilterButton>
+            {showDateFilter ? renderDateFilter() : null}
+            <Counter onChange={completedCount} itemCount={items.length} />
+            {showCompleted ? completedItems : showFilteredByDate ? filteredItems : allItems}
+            <EditDialog
+              item={editingItem}
+              handleClose={closeEdit}
+              handleSave={handleSave}
+            />
+
+          </div>
         </div>
-        <Counter onChange={completedCount} itemCount={items.length} />
       </div>
     </div>
   );
