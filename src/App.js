@@ -17,7 +17,7 @@ let StyledInput = styled(TextField)`
   
 `;
 let StyledAddButton = styled(Button)`
-  background-color: #bd2842;
+  background-color: #BF2204;
   margin-left: 10px;
   height: 35px;
   text-transform: none;
@@ -26,7 +26,7 @@ let StyledAddButton = styled(Button)`
   padding-left: 13px;
 `;
 let StyledFilterButton = styled(Button)`
-  background-color: #bd2842;
+  background-color: #BF2204;
   margin: 8px;
   height: 35px;
   text-transform: none;
@@ -39,6 +39,8 @@ let styles = () => ({
     display: "flex",
     justifyContent: "center",
     height: "100vh",
+    overflow: "auto",
+    width: 800,
     backgroundColor: "#04A1BF",
   },
   inputAndButtonContainer: {
@@ -56,242 +58,11 @@ let styles = () => ({
     justifyContent: "center",
     alignItems: "center",
     maxWidth: "100%",
-    borderRadius: "1%"
+    borderRadius: "1%",
+    maxHeight: "100vh",
   },
 });
 
-// class App extends Component {
-//   state = {
-//     inputValue: "",
-//     inputDateValue: new Date(),
-//     items: [],
-//     showCompleted: false,
-//     showDateFilter: false,
-//     showFilteredByDate: false,
-//     filteredByDate: [],
-//     editingItem: null,
-//   };
-
-//   handleInput = (event) => {
-//     this.setState({
-//       inputValue: event.target.value,
-
-//     });
-//   };
-
-//   handleDateInput = (event) => {
-//     this.setState(prevState => ({
-//       inputDateValue: event.target.value
-//     }))
-//   }
-
-//   addItem = () => {
-//     let date = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-${new Date().getDate()}`
-//     let { items, inputValue, inputDateValue } = this.state;
-
-//     if (
-//       items.some(
-//         (item) =>
-//           item.value.toLowerCase().trim() === inputValue.toLowerCase().trim()
-//       )
-//     ) {
-//       alert("Item is already added");
-//     } else if (inputValue.trim()) {
-//       let item = {
-//         id: uuidv4(),
-//         value: inputValue.trim(),
-//         completed: false,
-//         date: inputDateValue
-//       };
-//       this.setState({
-//         items: [item, ...items],
-//         inputValue: "",
-//         inputDateValue: date,
-//         showFilteredByDate: true,
-//       });
-//     }
-//     this.showAll()
-//     this.completedCount()
-//   };
-
-//   onKeyDown = (event) => {
-//     if (event.keyCode === 13) this.addItem()
-//   }
-
-//   delItem = (item) => {
-//     this.setState((state) => ({
-//       items: state.items.filter((elem) => elem.id !== item.id),
-//       filteredByDate: state.filteredByDate.filter((elem) => elem.id !== item.id),
-//     }));
-//     this.completedCount()
-//   };
-
-//   renderList = (item) => {
-//     return (
-//       <ToDoItems
-//         item={item}
-//         key={item.id}
-//         onDelete={this.delItem}
-//         onCheck={this.checkItem}
-//         onEdit={this.onEdit}>
-//         {item.value}
-//       </ToDoItems>
-//     );
-//   };
-
-//   completedCount = () => {
-//     let { items } = this.state
-//     if (items.length) {
-//       return items.reduce((acc, elem) => acc + elem.completed, 0)
-//     }
-//   }
-
-//   checkItem = (item) => {
-//     let checkedItem = this.state.items.map(elem => {
-//       if (elem.id === item.id) {
-//         elem.completed = !elem.completed
-//       }
-//       return elem
-//     })
-//     this.setState(state => ({
-//       items: checkedItem
-//     }))
-//   }
-
-//   showCompleted = () => {
-//     this.setState(prevState => ({
-//       showCompleted: true,
-//       showFilteredByDate: false,
-//     }))
-//   }
-//   showAll = () => {
-//     this.setState(prevState => ({
-//       showCompleted: false,
-//       showFilteredByDate: false,
-//     }))
-//   }
-
-//   deleteAll = () => {
-//     this.setState(prevState => ({
-//       items: [],
-//       filteredByDate: [],
-//       showFilteredByDate: false
-//     }))
-//   }
-
-//   deleteCompleted = () => {
-//     let filtered = this.state.items.filter(elem => elem.completed === false)
-
-//     this.setState(prevState => ({
-//       items: filtered,
-//     }))
-//   }
-
-//   dateFilter = () => {
-//     this.setState(prevState => ({
-//       showDateFilter: !prevState.showDateFilter
-//     }))
-//   }
-
-//   filterByDate = (event) => {
-//     let filtered = this.state.items.filter(elem => elem.date === event.target.value)
-//     this.setState(prevState => ({
-//       filteredByDate: filtered,
-//       showFilteredByDate: true
-//     }))
-//   }
-
-//   renderDateFilter = () => {
-//     return (
-//       <DateFilter onChange={this.filterByDate} />
-//     )
-//   }
-
-//   onEdit = (item) => {
-//     this.setState(prevState => ({
-//       editingItem: item,
-//     }))
-//   }
-
-//   closeEdit = () => {
-//     this.setState({
-//       editingItem: null
-//     })
-//   }
-
-//   handleSave = (editedValue) => {
-//     let { editingItem, items } = this.state
-//     let updatetItems = items.map(item => {
-//       if (item.id === editingItem.id) {
-//         return {
-//           ...item,
-//           value: editedValue
-//         }
-//       }
-//       return item
-//     })
-//     this.setState(prevState => ({
-//       items: updatetItems,
-//       editingItem: null,
-//     }))
-//   }
-
-//   render() {
-//     let date = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-${new Date().getDate()}`
-//     let { classes } = this.props;
-//     let { items, inputValue, filteredByDate, editingItem } = this.state;
-//     let completedItems = items.filter(item => item.completed === true).map((item) => this.renderList(item))
-//     let allItems = items.map((item) => this.renderList(item))
-//     let filteredItems = filteredByDate.map((item) => this.renderList(item))
-//     return (
-//       <div className={classes.container}>
-//         <div className={classes.inputAndButtonContainer}>
-//           <div className={classes.inputAndButton}>
-//             <StyledInput
-//               label="Type..."
-//               value={inputValue}
-//               onChange={this.handleInput}
-//               inputProps={{ onKeyDown: this.onKeyDown }}
-//             />
-//             <TextField
-//               id="date"
-//               label="Date"
-//               type="date"
-//               // defaultValue={date}
-//               value={this.state.inputDateValue}
-//               onChange={this.handleDateInput}
-//               className={classes.textField}
-//               InputLabelProps={{ shrink: true }}
-//             />
-//             <StyledAddButton onClick={this.addItem}>
-//               Add
-//             </StyledAddButton>
-//             <StyledAddButton >
-//               Search
-//             </StyledAddButton>
-//           </div>
-//           <div className={classes.listContainer}>
-
-//             <StyledFilterButton onClick={this.showAll}>Show All</StyledFilterButton>
-//             <StyledFilterButton onClick={this.showCompleted}>Show Completed</StyledFilterButton>
-//             <StyledFilterButton onClick={this.deleteAll}>Del All</StyledFilterButton>
-//             <StyledFilterButton onClick={this.deleteCompleted}>Del Completed</StyledFilterButton>
-//             <StyledFilterButton onClick={this.dateFilter}>Filter By Date</StyledFilterButton>
-//             {this.state.showDateFilter ? this.renderDateFilter() : null}
-//             {this.state.showCompleted ? completedItems : this.state.showFilteredByDate ? filteredItems : allItems}
-//             <EditDialog
-//               item={editingItem}
-//               handleClose={this.closeEdit}
-//               handleSave={this.handleSave}
-//             />
-
-//           </div>
-//           <Counter onChange={this.completedCount} itemCount={items.length} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
 function App(props) {
   let [inputValue, setInputValue] = useState("")
@@ -302,16 +73,6 @@ function App(props) {
   let [showFilteredByDate, setShowFilteredByDate] = useState(false)
   let [filteredByDate, setFilteredByDate] = useState([])
   let [editingItem, setEditingItem] = useState(null)
-  // state = {
-  //   inputValue: "",
-  //   inputDateValue: new Date(),
-  //   items: [],
-  //   showCompleted: false,
-  //   showDateFilter: false,
-  //   showFilteredByDate: false,
-  //   filteredByDate: [],
-  //   editingItem: null,
-  // };
 
   let handleInput = (event) => {
     setInputValue(event.target.value)
@@ -452,49 +213,52 @@ function App(props) {
   let allItems = items.map((item) => renderList(item))
   let filteredItems = filteredByDate.map((item) => renderList(item))
   return (
-    <div className={classes.container}>
-      <div className={classes.inputAndButtonContainer}>
-        <div className={classes.inputAndButton}>
-          <StyledInput
-            label="Type..."
-            value={inputValue}
-            onChange={handleInput}
-            inputProps={{ onKeyDown }}
-          />
-          <TextField
-            id="date"
-            label="Date"
-            type="date"
-            // defaultValue={date}
-            value={inputDateValue}
-            onChange={handleDateInput}
-            className={classes.textField}
-            InputLabelProps={{ shrink: true }}
-          />
-          <StyledAddButton onClick={addItem}>
-            Add
-          </StyledAddButton>
-          <StyledAddButton >
-            Search
-          </StyledAddButton>
-        </div>
-        <div className={classes.listContainer}>
+    <div className="App">
 
-          <StyledFilterButton onClick={showAll}>Show All</StyledFilterButton>
-          <StyledFilterButton onClick={() => setShowCompleted(true)}>Show Completed</StyledFilterButton>
-          <StyledFilterButton onClick={deleteAll}>Del All</StyledFilterButton>
-          <StyledFilterButton onClick={deleteCompleted}>Del Completed</StyledFilterButton>
-          <StyledFilterButton onClick={dateFilter}>Filter By Date</StyledFilterButton>
-          {showDateFilter ? renderDateFilter() : null}
-          {showCompleted ? completedItems : showFilteredByDate ? filteredItems : allItems}
-          <EditDialog
-            item={editingItem}
-            handleClose={closeEdit}
-            handleSave={handleSave}
-          />
+      <div className={classes.container}>
+        <div className={classes.inputAndButtonContainer}>
+          <div className={classes.inputAndButton}>
+            <StyledInput
+              label="Type..."
+              value={inputValue}
+              onChange={handleInput}
+              inputProps={{ onKeyDown }}
+            />
+            <TextField
+              id="date"
+              label="Date"
+              type="date"
+              // defaultValue={date}
+              value={inputDateValue}
+              onChange={handleDateInput}
+              className={classes.textField}
+              InputLabelProps={{ shrink: true }}
+            />
+            <StyledAddButton onClick={addItem}>
+              Add
+            </StyledAddButton>
+            <StyledAddButton >
+              Search
+            </StyledAddButton>
+          </div>
+          <div className={classes.listContainer}>
 
+            <StyledFilterButton onClick={showAll}>Show All</StyledFilterButton>
+            <StyledFilterButton onClick={() => setShowCompleted(true)}>Show Completed</StyledFilterButton>
+            <StyledFilterButton onClick={deleteAll}>Del All</StyledFilterButton>
+            <StyledFilterButton onClick={deleteCompleted}>Del Completed</StyledFilterButton>
+            <StyledFilterButton onClick={dateFilter}>Filter By Date</StyledFilterButton>
+            {showDateFilter ? renderDateFilter() : null}
+            <Counter onChange={completedCount} itemCount={items.length} />
+            {showCompleted ? completedItems : showFilteredByDate ? filteredItems : allItems}
+            <EditDialog
+              item={editingItem}
+              handleClose={closeEdit}
+              handleSave={handleSave}
+            />
+
+          </div>
         </div>
-        <Counter onChange={completedCount} itemCount={items.length} />
       </div>
     </div>
   );
