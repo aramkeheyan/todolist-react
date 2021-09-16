@@ -56,8 +56,7 @@ let styles = () => ({
 class ToDoItems extends Component {
 
   render() {
-    let { classes } = this.props;
-    let { item } = this.props
+    let { classes, item } = this.props;
     return (
       <div className={classes.item}>
         <div className={classes.text}>

@@ -6,10 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import React from "react";
-import ToDoItems from "./components/todoitems";
+import ToDoItems from "./components/ToDoItems";
 import DateFilter from "./components/datefilter";
-import Counter from './components/counter';
-import EditDialog from "./components/modal";
+import Counter from './components/Counter';
+import Modal from "./components/Modal";
 
 
 let StyledInput = styled(TextField)`
@@ -83,7 +83,7 @@ function App(props) {
   }
 
   let addItem = () => {
-    debugger;
+
     let date = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-${new Date().getDate()}`
     if (
       items.some(
@@ -251,7 +251,7 @@ function App(props) {
             {showDateFilter ? renderDateFilter() : null}
             <Counter onChange={completedCount} itemCount={items.length} />
             {showCompleted ? completedItems : showFilteredByDate ? filteredItems : allItems}
-            <EditDialog
+            <Modal
               item={editingItem}
               handleClose={closeEdit}
               handleSave={handleSave}
