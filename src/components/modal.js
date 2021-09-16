@@ -7,7 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-class EditDialog extends Component {
+class Modal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -63,4 +63,4 @@ class EditDialog extends Component {
     }
 }
 
-export default EditDialog;
+export default Modal;
